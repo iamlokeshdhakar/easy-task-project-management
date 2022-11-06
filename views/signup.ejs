@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Easy Task</title>
+    <link rel="shortcut icon" href="../images/set/nlogo-transformed.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+
+<body>
+    <div class="hero-section">
+        <div class="left home-menu-left">
+            <div class="top-left">
+              <div class="logo">
+                <img src="../images/set/nlogo-transformed.png" alt="">
+              </div>
+              <div class="menus">
+                <div class="menu">
+                  <a id="dash" href="/">
+                    <i id="dash" class="ri-home-smile-2-fill"></i>
+                  </a>
+                </div>
+                <div class="menu">
+                  <a id="board" href="/#steps">
+                    <i id="board" class="ri-walk-fill"></i>
+                  </a>
+                </div>
+                <div class="menu">
+                  <a href="/#feature">
+                  <i class="ri-apps-fill"></i>
+                </a>
+                </div>
+                <div class="menu">
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=lokeshdhakaryt97@gmail.com" target="_blank">
+                    <i class="ri-question-fill"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="logout">
+              <button> <a href="/signup">Sign Up</a> </button>
+              <button> <a href="/login">LogIn</a> </button>
+            </div>
+          </div>
+            <div class="right">
+                <div class="sign-full">
+                    <div class="left-sign">
+                      <form action="<%=link%>" method="post">
+                        <div class="sign-txt">
+                          <h6>START FOR FREE</h6>
+                          <h1>Create new account.</h1>
+                          <a href="/login">Already A Member ? <span>Log In</span></a>
+                          <div class="sign-field full-name">
+                            <div class="sign-first-name">
+                              <input type="text" name="firstName" id="" placeholder="First Name">
+                             <i class="ri-user-2-fill"></i>
+                            </div>
+                            <div class="sign-last-name">
+                              <input type="text" name="lastName" id="" placeholder="Last Name">
+                            <i class="ri-user-2-fill"></i>
+                            </div>
+                          </div>
+                          <div class="sign-field">
+                            <input type="text" name="designation" id="" placeholder="Designation">
+                            <i class="ri-user-6-fill"></i>
+                          </div>
+                          <div class="sign-field">
+                            <input type="email" name="email" id="" placeholder="Email">
+                            <i class="ri-mail-fill"></i>
+                          </div>
+                          <div class="sign-field">
+                            <input type="text" name="username" id="" placeholder="Username">
+                            <i class="ri-user-heart-fill"></i>
+                          </div>
+                          <div class="sign-field">
+                            <input type="password" name="password" id="passcode" placeholder="Password">
+                            <i class="ri-lock-password-fill"></i>
+                          </div>
+                          <div class="sign-field">
+                            <input type="password" id="c-passcode" placeholder="Confirm Password">
+
+                            <i class="ri-lock-password-fill"></i>
+                          </div>
+                          <button type="submit">Create</button>
+                      </div>
+
+                      </form>
+                    </div>
+                    <div class="right-sign">
+                        <img src="../images/set/sign-up.png" alt="">
+                    </div>
+                </div>
+            </div>
+    </div>        
+</body>
+
+<script>
+  
+  document.querySelector('form').addEventListener('submit' , (submitForm)=>{
+  let passcode = document.querySelector('#passcode').value;
+  let cPasscode = document.querySelector('#c-passcode').value;
+    if(passcode !== cPasscode){
+      submitForm.preventDefault();
+      alert('Please Enter Same Passcode In Both Field');
+    } 
+    // else if(passcode.length < 8){
+    //   submitForm.preventDefault();
+    //   alert('Password Should Be 8 Digits');
+    // }
+  });
+</script>
+</html>

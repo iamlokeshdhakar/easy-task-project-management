@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board | Easy Task</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"
+        integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="shortcut icon" href="../images/set/nlogo-transformed.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+
+<body>
+    <div class="hero-section">
+        <%-include('_left_menu')%>
+            <div class="right">
+                <div class="boardImage">
+                    <div class="bi-top">
+                        <h1>Discussion</h1>
+                        <h6>Comunicate with your team.</h6>
+                    </div>
+                    <div class="bi-bottom">
+                        <img src="../images/set/chat-room.png" alt="">
+                    </div>
+                </div>
+                <div class="boardWin">
+                    <div class="chat-room">
+                        <div class="online">
+                            <div class="online-head">
+                                <h3>Messages</h3>
+                                <div class="online-count">
+                                    <h6>All User</h6>
+                                </div>
+                            </div>
+                            <div class="online-member">
+                                <%if(project){%>
+                                    <% project.teamMember.forEach(function(member){%>
+                                        <div class="member-card">
+                                            <div class="member-dp">
+                                                <div class="member-profile">
+                                                    <img src="../images/uploads/<%=member.profilePic%>" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="member-txt">
+                                                <h5>
+                                                    <%=member.firstName%>
+                                                        <%=member.lastName%>
+                                                </h5>
+                                                <h6>
+                                                    <%=member.designation%>
+                                                </h6>
+                                            </div>
+                                            <div class="member-time">
+                                                <div id="<%=member.firstName%>" class="indicater">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <%})%>
+                                            <%} else{%>
+                                                <h5 style="padding: 20px; text-align: center;">You are not a member or
+                                                    manager of any team.</h5>
+                                                <%}%>
+                            </div>
+                        </div>
+                        <div class="chat-box">
+                            <div class="chat-top">
+                                <h6 id="typingon"></h6>
+                                <button onclick="window.location.reload()">Clear Chat</button>
+                            </div>
+                            <div class="chat-center">
+
+                            </div>
+                            <div class="chat-bottom">
+                                <div class="send-sms">
+                                    <textarea id="textarea-ss" placeholder="Type your message here..."></textarea>
+                                    <button id="send-msg-btn"><i class="ri-send-plane-fill"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.3/socket.io.js"
+        integrity="sha512-iWPnCISAd/J+ZacwV2mbNLCaPGRrRo5OS81lKTVPtRg1wGTC20Cfmp5Us5RcbLv42QLdbAWl0MI57yox5VecQg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        let chat = document.querySelector('#chat');
+        chat.style.color = "#EB3118";
+        chat.style.transform = "scale(1.35)";
+
+        const socket = io()
+        let name = "<%=loggedInUser.firstName%>";
+        let textarea = document.querySelector('#textarea-ss');
+        let btn = document.querySelector('#send-msg-btn')
+        let messageArea = document.querySelector('.chat-center')
+        let typingDiv = document.querySelector('#typingon');
+
+
+        textarea.addEventListener('input', ()=>{
+           socket.emit('typing', {username: name});
+        });
+
+        let setid = null; 
+        function clearTime(func, timer){
+            if(setid){
+                clearTimeout(setid);
+            }
+        setid = setTimeout(()=>{
+                func()
+            }, timer);
+        }
+    
+        socket.on('typing', (data)=>{
+            typingDiv.textContent = `${data.username} is typing...`;
+            clearTime(function(){
+            typingDiv.textContent = '';
+            }, 1500);
+        });
+
+        btn.addEventListener('click', (e) => {
+            if (textarea.value.trim().length > 0) {
+                sendMessage(textarea.value);
+            }
+        })
+
+        function sendMessage(message) {
+            let msg = {
+                user: name,
+                message: message.trim()
+            }
+
+            appendMessage(msg, 'right-sms')
+            textarea.value = ''
+            scrollToBottom()
+
+            socket.emit('message', msg)
+
+        }
+
+        function appendMessage(msg, type) {
+            let mainDiv = document.createElement('div');
+            let className = type;
+            mainDiv.classList.add(className, 'sms-div');
+            let markup;
+            if (className === 'right-sms') {
+                markup = `<div class="message-card"><p>${msg.message}</p></div>`
+            } else {
+                markup = `<div class="message-card"><h5>${msg.user}</h5><p>${msg.message}</p></div>`
+            }
+            mainDiv.innerHTML = markup
+            messageArea.prepend(mainDiv)
+        }
+
+        function scrollToBottom() {
+            messageArea.scrollTop = messageArea.scrollHeight
+        }
+
+        socket.on('message', (msg) => {
+            window.speechSynthesis.cancel();
+            speech.text = msg.message;
+            appendMessage(msg, 'left-sms')
+            window.speechSynthesis.speak(speech);
+            scrollToBottom()
+        });
+
+
+
+
+
+        let speech = new SpeechSynthesisUtterance();
+
+        speech.lang = "en";
+        speech.rate = '1';
+        speech.volume = "1";
+        speech.pitch = "1"
+
+        window.speechSynthesis.onvoiceschanged = () => {
+            voices = window.speechSynthesis.getVoices();
+            speech.voice = voices[0];
+        };
+
+
+    </script>
+</body>
+
+</html>

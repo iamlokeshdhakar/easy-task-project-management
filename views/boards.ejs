@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Board | Easy Task</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"
+    integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="shortcut icon" href="../images/set/nlogo-transformed.png" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+
+<body>
+  <div class="hero-section">
+    <%-include('_left_menu')%>
+      <div class="right">
+        <div class="boardImage">
+          <div class="bi-top">
+              <h1>Board</h1>
+              <h6>Assign Task</h6>
+          </div>
+          <div class="bi-bottom">
+            <img src="../images/set/boardImage.png" alt="">
+          </div>
+        </div>
+        <div class="boardWin">
+          <div class="board-work">
+            <div class="board-cnt">
+              <div class="bw-top">
+                <input required type="text" name="" id="subject_board" placeholder="Task name here...">
+              </div>
+              <div class="bw-center">
+                <textarea name="description" placeholder="Description"></textarea>
+              </div>
+              <div class="bw-add-media">
+                <button><i class="ri-add-line"></i>Add Media</button>
+              </div>
+              <div class="bw-bottom">
+                <div class="bwb-left">
+                  <button><i class="ri-user-6-line"></i> Assign To</button>
+                  <select id="select-mem" required>
+                    <%if(project){%>
+                      <option name="h" value="nn">Select Member</option>
+                      <%project.teamMember.forEach(function(team){%>
+                        <option name="h" value="<%=team._id%>"><%=team.firstName +" "+ team.lastName%></option>
+                        <%})%>
+                          <%}%>
+                  </select>
+                </div>
+                <div class="bwb-right">
+                  <button type="button">Cancel</button>
+                  <button id="just-add" type="reset">Add Task</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="boards-div">
+            <div class="boards">
+              <div class="b-heading">
+                <h5>TO DO TASK</h5>
+                <i data-link="to-do-task" class="ri-add-circle-fill t-open-btn"></i>
+              </div>
+              <div class="cards-parent" id="to-do-task">
+                <%if(project){%>
+                  <%project.toDoTask.forEach(function(task){%>
+                    <div class="cards">
+                      <div class="content">
+                        <p>
+                          <%=task.subject%>
+                        </p>
+                      </div>
+                      <div class="attach">
+                        <h6>
+                          <%= task.attachment.length%> attachment
+                        </h6>
+                        <a href="/delete-task/<%=task._id%>"><i class="ri-delete-bin-4-fill"></i></a>
+                      </div>
+                      <div class="assign">
+                        <h5>Assign to:</h5>
+                        <h6><%=task.assignTo.firstName + " " + task.assignTo.lastName%></h6>
+                      </div>
+                    </div>
+                    <%})%>
+                      <%}%>
+              </div>
+              <button data-link="to-do-task" class="add-task-board t-open-btn"><i class="ri-add-line"></i> Add
+                Task</button>
+            </div>
+            <div class="boards">
+              <div class="b-heading">
+                <h5>IN PROGRESS</h5>
+                <i data-link="in-progress" class="ri-add-circle-fill t-open-btn"></i>
+              </div>
+              <div class="cards-parent" id="in-progress">
+                <%if(project){%>
+                  <%project.inProgress.forEach(function(task){%>
+                    <div class="cards">
+                      <div class="content">
+                        <p>
+                          <%=task.subject%>
+                        </p>
+                      </div>
+                      <div class="attach">
+                        <h6>
+                          <%= task.attachment.length%> attachment
+                        </h6>
+                        <a href="/delete-task/<%=task._id%>"><i class="ri-delete-bin-4-fill"></i></a>
+                      </div>
+                      <div class="assign">
+                        <h5>Assign to:</h5>
+                        <h6><%=task.assignTo.firstName + " " + task.assignTo.lastName%></h6>
+                      </div>
+                    </div>
+                    <%})%>
+                      <%}%>
+              </div>
+              <button data-link="in-progress" class="add-task-board t-open-btn"><i class="ri-add-line"></i> Add
+                Task</button>
+            </div>
+            <div class="boards">
+              <div class="b-heading">
+                <h5>IN REVIEW</h5>
+                <i data-link="in-review" class="ri-add-circle-fill t-open-btn"></i>
+              </div>
+              <div class="cards-parent" id="in-review">
+                <%if(project){%>
+                  <%project.inReview.forEach(function(task){%>
+                    <div class="cards">
+                      <div class="content">
+                        <p>
+                          <%=task.subject%>
+                        </p>
+                      </div>
+                      <div class="attach">
+                        <h6>
+                          <%= task.attachment.length%> attachment
+                        </h6>
+                        <a href="/delete-task/<%=task._id%>"><i class="ri-delete-bin-4-fill"></i></a>
+                      </div>
+                      <div class="assign">
+                        <h5>Assign to:</h5>
+                        <h6><%=task.assignTo.firstName + " " + task.assignTo.lastName%></h6>
+
+                      </div>
+                    </div>
+                    <%})%>
+                      <%}%>
+              </div>
+              <button data-link="in-review" class="add-task-board t-open-btn"><i class="ri-add-line"></i> Add
+                Task</button>
+
+            </div>
+            <div class="boards">
+              <div class="b-heading">
+                <h5>DONE</h5>
+                <i data-link="done" class="ri-add-circle-fill t-open-btn"></i>
+              </div>
+              <div class="cards-parent" id="done">
+                <%if(project){%>
+                  <%project.done.forEach(function(task){%>
+                    <div class="cards">
+                      <div class="content">
+                        <p>
+                          <%=task.subject%>
+                        </p>
+                      </div>
+                      <div class="attach">
+                        <h6>
+                          <%= task.attachment.length%> attachment
+                        </h6>
+                        <a href="/delete-task/<%=task._id%>"><i class="ri-delete-bin-4-fill"></i></a>
+                      </div>
+                      <div class="assign">
+                        <h5>Assign to:</h5>
+                        <h6><%=task.assignTo.firstName + " " + task.assignTo.lastName%></h6>
+
+                      </div>
+                    </div>
+                    <%})%>
+                      <%}%>
+              </div>
+              <button data-link="done" class="add-task-board t-open-btn"><i class="ri-add-line"></i> Add Task</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <script>
+
+    let board = document.querySelector('#board');
+    board.style.color = "#EB3118";
+    let linkUrl;
+
+    function openAddTask() {
+      document.querySelectorAll('.t-open-btn').forEach((elem) => {
+        elem.addEventListener('click', (event) => {
+          document.querySelector('.board-work').style.transform = "translateY(0%)";
+          linkUrl = `${event.target.attributes[0].value}`;
+        })
+      });
+      document.querySelector('.bwb-right button:nth-child(1)').addEventListener('click', () => {
+        document.querySelector('.board-work').style.transform = "translateY(100%)";
+      });
+    }
+    openAddTask();
+
+    document.querySelector('#just-add').addEventListener('click', (event) => {
+      let subject = document.querySelector('.bw-top input');
+      let description = document.querySelector('.bw-center textarea').value;
+      let option = document.querySelector('#select-mem').value;
+      axios.post('/add-task', {
+        taskField: linkUrl,
+        subject: subject.value,
+        description: description,
+        assign: option
+      })
+        .then((response) => {
+          console.log(response);
+          document.querySelector('.board-work').style.transform = "translateY(100%)";
+          document.querySelector('.bw-top input').value = "";
+          document.querySelector('.bw-center textarea').value = "";
+          document.querySelector('#select-mem').value = "nn";
+          document.querySelector(`#${linkUrl}`).innerHTML += ` <div class="cards">
+                  <div class="content">
+                    <p>${response.data.subject}</p>
+                  </div>
+                  <div class="attach">
+                    <h6>${response.data.attachment.length} attachment</h6>
+                    <a href="/delete-task/${response.data._id}"><i class="ri-delete-bin-4-fill"></i></a>
+                  </div>
+                  <div class="assign">
+                    <h5>Assign to:</h5>
+                    <h6>${response.data.assignTo.firstName}  ${response.data.assignTo.lastName}</h6>
+                  </div>
+                </div>`;
+        })
+        .catch((error) => console.log(error));
+    })
+
+  </script>
+</body>
+
+</html>

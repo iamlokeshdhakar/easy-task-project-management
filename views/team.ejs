@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Task | Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"
+        integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="shortcut icon" href="../images/set/nlogo-transformed.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+
+<body>
+    <div class="hero-section">
+        <%-include('_left_menu')%>
+            <div class="right">
+                <div class="sign-full">
+                    <div class="left-sign">
+                            <div class="step-slide stp-two">
+                                <div class="step-two">
+                                    <div class="sign-txt">
+                                        <h6>STEP TWO</h6>
+                                        <h1>Team Creation</h1>
+                                        <a href="">Add a member into your team if the person does't have an account tell us to create one.</a>
+    
+                                        <div class="add-member sign-field">
+                                            <input type="email" name="memberOne" placeholder="Email" id="input-add-value">
+                                            <button type="button" class="add-new-member">Add</button>
+                                        </div>
+                                        <button> <a style="color: white; font-weight: 900;" href="/dashboard">Done</a> </button>
+
+                                        <div style="background-color: transparent; color: rgb(18, 207, 217)" class="sign-field">
+                                            <h5 id="warning"></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="right-sign">
+                        <img style="transform: scaleX(-1);" src="../images/set/coffe.png" alt="">
+                    </div>
+                </div>
+            </div>
+    </div>
+
+</body>
+<script>
+    document.querySelector('.add-new-member').addEventListener('click', ()=>{
+        let inputValue = document.querySelector('.add-member input').value;
+        let warning  = document.querySelector('#warning');
+            axios.get(`/add-member/${inputValue}`).then((user)=>{
+                warning.textContent = user.data;
+                setTimeout(()=>{
+                warning.textContent = "";
+                }, 2000);
+            })
+    });
+</script>
+
+</html>

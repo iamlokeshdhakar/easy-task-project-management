@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board | Easy Task</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"
+        integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="shortcut icon" href="../images/set/nlogo-transformed.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+
+<body>
+    <div class="hero-section">
+        <%-include('_left_menu')%>
+            <div class="right">
+                <div class="boardImage">
+                    <div class="bi-top">
+                        <h1>TTS</h1>
+                        <h6>Listen your doc text.</h6>
+                    </div>
+                    <div class="bi-bottom tts-img">
+                        <img src="../images/set/ttstts.png" alt="">
+                    </div>
+                </div>
+                <div class="boardWin">
+                    <div class="tts">
+                        <div class="tts-center">
+                            <textarea id="tts-textarea" placeholder="Paste your text here..."></textarea>
+                        </div>
+                        <div class="tts-bottom">
+                            <button id="tts-speak">Listen Now  <i class="ri-play-fill"></i></button>
+                            <div class="speak-feat tts-feat">
+                                <h4>Select Voice: </h4>
+                                <select id="speak-gender">
+                                </select>
+                                <h4 style="margin-left: 20px;">Speed: </h4>
+                                <select id="speak-speed">
+                                  <option value="0.25">0.25x</option>
+                                  <option value="0.5">0.5x</option>
+                                  <option value="0.75">0.75x</option>
+                                  <option selected value="1">Normal</option>
+                                  <option value="1.25">1.25x</option>
+                                  <option value="1.5">1.5x</option>
+                                  <option value="1.75">1.75x</option>
+                                  <option value="2">2x</option>
+                                </select>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+  <script src="../javascripts/tts.js"></script>
+</body>
+
+</html>

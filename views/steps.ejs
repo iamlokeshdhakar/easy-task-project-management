@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Task | Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"
+        integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="shortcut icon" href="../images/set/nlogo-transformed.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+
+<body>
+    <div class="hero-section">
+        <%-include('_left_menu')%>
+            <div class="right">
+                <div class="sign-full">
+                    <div class="left-sign">
+                        <form action="/project-details" method="post">
+                            <div class="step-slide">
+                                <div class="step-one">
+                                    <div class="sign-txt">
+                                        <h6>STEP ONE</h6>
+                                        <h1>Project Details</h1>
+                                        <a href="">Take a coffee and fill the details.</a>
+                                        <div class="sign-field">
+                                            <input type="text" name="projectName" placeholder="Project Tittle">
+                                            <i class="ri-hard-drive-fill"></i>
+                                        </div>
+                                        <div class="sign-field">
+                                            <input type="text" name="description" placeholder="Description">
+                                            <i class="ri-file-text-fill"></i>
+                                        </div>
+                                        <div class="sign-field">
+                                            <input type="text" name="techStack" placeholder="Technology Used">
+                                            <i class="ri-code-box-fill"></i>
+                                        </div>
+                                        <div class="sign-field">
+                                            <label style="font-size: 1vw; font-weight: 900;" for="date">Start Date</label>
+                                            <input style="width: 50%;" type="date" name="startDate">
+                                        </div>
+                                        <div class="sign-field">
+                                            <label style="font-size: 1vw; font-weight: 900;" for="date">End Date</label>
+                                            <input style="width: 50%;" type="date" name="endDate">
+                                        </div>
+                                        <button>Next Step</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="right-sign">
+                        <img style="transform: scaleX(-1);" src="../images/set/coffe.png" alt="">
+                    </div>
+                </div>
+            </div>
+    </div>
+
+</body>
+<script>
+    document.querySelectorAll('.left a').forEach(element => {
+        element.addEventListener('click', (e) => {
+            e.preventDefault();
+        });
+    });
+</script>
+
+</html>
