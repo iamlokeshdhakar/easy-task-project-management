@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const plm = require('passport-local-mongoose');
 
-mongoose.connect('mongodb://localhost/easytask');
+mongoose.connect(process.env.MONGO_CONNECTION_URL);
 
 let userSchema = mongoose.Schema({
     firstName: String,
