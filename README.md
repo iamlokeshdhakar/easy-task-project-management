@@ -3,7 +3,7 @@
 
 The purpose of project management is to plan and manage a project to successfully complete its listed goals and deliverables. Implements the features of task assignments, scheduled meetings, task boards, chatting, voice updates, etc. Created the project with excellent design for a better user experience. 
 
-## Live Demo
+## Live Link
 - [Click Here](https://easy-task.onrender.com)
 
 ## Features
